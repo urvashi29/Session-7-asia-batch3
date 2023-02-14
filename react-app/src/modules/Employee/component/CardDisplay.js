@@ -1,0 +1,47 @@
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { useDispatch } from "react-redux";
+import { onDelete } from "../../action";
+
+const CardDisplay = ({ employee }) => {
+  const dispatch = useDispatch();
+
+  const handleDelete = (id) => {
+    dispatch(onDelete(id));
+  };
+
+  const employeeList = employee.length ? (
+    employee.map((item) => {
+      return (
+        <Card sx={{ maxWidth: 345 }}>
+          <CardMedia
+            sx={{ height: 140 }}
+            image="/static/images/cards/contemplative-reptile.jpg"
+            title="green iguana"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {item.name} {item.email}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small" onClick={() => handleDelete(item.id)}>
+              Delete
+            </Button>
+          </CardActions>
+        </Card>
+      );
+    })
+  ) : (
+    <>Add data in form</>
+  );
+
+  return employeeList;
+};
+
+export default CardDisplay;
